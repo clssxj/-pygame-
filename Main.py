@@ -1,5 +1,9 @@
 import pygame
 import random
+
+import Act
+import Against
+import Border
 import Comman
 import Draw
 import PlayerInput
@@ -20,6 +24,14 @@ def RDC():
     random.seed()
     return random.randint(0,7)
 
+def tetrimino_act(main, minor, act, border):
+    if DangBlock.IsAgainst(main, minor, act):
+        return
+    else :
+        if Against.LRAgainst(main, act):
+            return
+        else :
+            return Against.UnderAgainst(main, act, border)
 # 创建玩家
 player1 = Tetrimino.tetrimino((4,0),Comman.RED,RDC())
 player2 = Tetrimino.tetrimino((12,0),Comman.BLUE,RDC())
@@ -28,6 +40,9 @@ player2 = Tetrimino.tetrimino((12,0),Comman.BLUE,RDC())
 fall_counter = 0
 # 每20帧自动下落1格
 fall_speed = 20
+
+# 创建已有方块类
+border = Border.border()
 
 running = True
 while running:
@@ -49,25 +64,12 @@ while running:
     move_left2, move_right2, move_down2, rotate2 = PlayerInput.Input(key, 2)
 
     # 存储动作
-    act1, act2 = -1, -1
-    if move_left1:
-        act1 = 0
-    elif move_right1:
-        act1 = 1
-    elif move_down1:
-        act1 = 2
-    elif rotate1:
-        act1 = 3
-
-    if move_left2:
-        act2 = 0
-    elif move_right2:
-        act2 = 1
-    elif move_down2:
-        act2 = 2
-    elif rotate2:
-        act2 = 3
+    act1, act2 = Act.map_act(move_left1, move_right1, move_down1, rotate1), Act.map_act(move_left2, move_right2, move_down2, rotate2)
 
     # 先判定悬空方块是否碰撞，在悬空方块碰撞判定完之后判定与左右边界值碰撞，最后判定与下界碰撞
-    DangBlock.IsAgainst(player1, player2, act1, act2)
+    # 先判定玩家一的动作
+    border, player1, IsFix1 = tetrimino_act(player1, player2, act1, border)
+
+    # 再判定玩家二的动作
+    border, player2, IsFix2 = tetrimino_act(player2, player1, act2, border)
 
