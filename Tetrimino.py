@@ -15,11 +15,11 @@ import Border
 每次方块固定完之后，依据玩家id重新生成方块
 旋转时中心旋转
 '''
-class tetrimino():
+class tetrimino:
     # 初始化方块，初始位置，颜色，形状
     def __init__(self, stp, clr, sid):
         self.clr = clr
-        self.x, self.y = stp, 1
+        self.x, self.y = stp
         self.sid = sid
         self.shape = Comman.SHAPES.get(sid)
         self.rid = 0
@@ -27,12 +27,14 @@ class tetrimino():
         self.cy = self.y + len(self.shape) // 2  # 计算旋转中心y坐标
         self.isMain = -1
 
-    def __init__(self):
-        self.isMain = -1
-
+    # 旋转方块
     def rotate(self):
-        self.rid += 1
-        self.shape = Comman.ROTATE_SHAPE[self.rid]
+        # 旋转前，获取当前形状
+        new_shape = Comman.ROTATE_SHAPE[self.sid][(self.rid + 1) % len(Comman.ROTATE_SHAPE[self.sid])]
+
+        # 更新方块的形状和旋转状态
+        self.rid = (self.rid + 1) % len(Comman.ROTATE_SHAPE[self.sid])  # 更新旋转次数
+        self.shape = new_shape  # 更新方块形状
 
 
     def move(self, dx, dy):
@@ -42,8 +44,11 @@ class tetrimino():
     # 获取这个方块每个格子的左上角坐标
     def get_coordinates(self):
         coords = []
-        for i, row in enumerate(self.shape[self.rotation]):
-            for j, val in enumerate(row):
-                if val:
-                    coords.append((self.x + j, self.y + i))
+        # 获得一个二维数组
+        now_shape = Comman.ROTATE_SHAPE[self.sid][self.rid]
+        for i in range(len(now_shape)):
+            for j in range(len(now_shape[i])):
+                if now_shape[i][j] == 1:
+                    coords.append((i + self.x, j + self.y))
+
         return coords

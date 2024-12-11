@@ -15,9 +15,9 @@ MAXINT = 9223372036854775807
 # 定义最小数常量
 MININT = -MAXINT + 1
 # 行数
-ROW = SCREEN_WIDTH // BLOCK_SIZE
+ROW = SCREEN_HEIGHT // BLOCK_SIZE
 # 列数
-COLUMN = SCREEN_HEIGHT // BLOCK_SIZE
+COLUMN = SCREEN_WIDTH // BLOCK_SIZE
 # 颜色定义
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
@@ -34,7 +34,7 @@ SCREEN = pygame.display.set_mode((SCREEN_WIDTH,SCREEN_HEIGHT))
 # 形状定义
 SHAPES = {
             0:
-                [1, 1, 1, 1],
+                [[1, 1, 1, 1]],
             1:
                 [[1, 1, 0],
                  [0, 1, 1]],
@@ -54,18 +54,18 @@ SHAPES = {
                 [[1, 1],
                  [1, 1]],
             7:
-                [1]
+                [[1]]
           }
 
 # 定义旋转数组
 ROTATE_SHAPE = [
                     [
-                        [1, 1, 1, 1],
+                        [[1, 1, 1, 1]],
                         [[1],
                          [1],
                          [1],
                          [1]],
-                        [1, 1, 1, 1],
+                        [[1, 1, 1, 1]],
                         [[1],
                          [1],
                          [1],
@@ -142,9 +142,9 @@ ROTATE_SHAPE = [
                          [1, 1]]
                     ],
                     [
-                        [1],
-                        [1],
-                        [1],
-                        [1]
+                        [[1]],
+                        [[1]],
+                        [[1]],
+                        [[1]]
                     ],
                 ]

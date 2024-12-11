@@ -11,7 +11,9 @@ def UnderAgainst(tetrimino, act, border):
     tetrimino = Act.tetrimino_move(tetrimino, act)
     coords = tetrimino.get_coordinates()
     for coord in coords:
-        if coord in border:
+        x = coord[0]
+        y = coord[1]
+        if border.brd[x][y] == 1:
             # 这里面主要是为了更改border
             border.add(tetrimino)
             return border, tetrimino, True
