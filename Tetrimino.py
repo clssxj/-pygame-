@@ -19,7 +19,7 @@ class tetrimino():
     # 初始化方块，初始位置，颜色，形状
     def __init__(self, stp, clr, sid):
         self.clr = clr
-        self.x,self.y = stp
+        self.x, self.y = stp, 1
         self.sid = sid
         self.shape = Comman.SHAPES.get(sid)
         self.rid = 0

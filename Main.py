@@ -44,6 +44,9 @@ fall_speed = 20
 # 创建已有方块类
 border = Border.border()
 
+# 绘制已有方块类
+Draw.draw_border(border, screen)
+
 running = True
 while running:
     # 填充白色背景
@@ -70,6 +73,14 @@ while running:
     # 先判定玩家一的动作
     border, player1, IsFix1 = tetrimino_act(player1, player2, act1, border)
 
+    # 绘制方块
+    if IsFix1:
+        Draw.draw_border(border, screen)
+
     # 再判定玩家二的动作
     border, player2, IsFix2 = tetrimino_act(player2, player1, act2, border)
+
+    # 绘制方块
+    if IsFix2:
+        Draw.draw_border(border, screen)
 

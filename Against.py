@@ -13,7 +13,7 @@ def UnderAgainst(tetrimino, act, border):
     for coord in coords:
         if coord in border:
             # 这里面主要是为了更改border
-
+            border.add(tetrimino)
             return border, tetrimino, True
 
     return border, tetrimino, False
